@@ -157,9 +157,14 @@ export function HeroPanel({ onStart }) {
 }
 
 // ABOUT ME PANEL
-export function AboutPanel() {
+export function AboutPanel({ onClose }) {
   return html`
     <div className="glass-panel">
+      <!-- Close Cross Button -->
+      <button className="btn-close-panel" onClick=${onClose} title="Trở lại tàu">
+        <${Icon} name="X" size=${16} />
+      </button>
+
       <h2 className="panel-title">
         <${Icon} name="User" className="text-cyan" /> <span>Giới Thiệu</span>
       </h2>
@@ -197,12 +202,17 @@ export function AboutPanel() {
           <div className="timeline-desc">Phát triển các ứng dụng phong phú sử dụng Laravel và React, giảm thiểu độ trễ API hơn 35%.</div>
         </div>
       </div>
+
+      <!-- Close Button Bottom -->
+      <button className="btn-back-boat" onClick=${onClose}>
+        <${Icon} name="ArrowLeft" size=${14} /> Giương buồm tiếp tục
+      </button>
     </div>
   `;
 }
 
 // SKILLS PANEL
-export function SkillsPanel() {
+export function SkillsPanel({ onClose }) {
   const skillsList = [
     { name: 'React JS', icon: 'Codepen', desc: 'Giao diện' },
     { name: 'Node JS', icon: 'Server', desc: 'Máy chủ' },
@@ -216,6 +226,11 @@ export function SkillsPanel() {
 
   return html`
     <div className="glass-panel">
+      <!-- Close Cross Button -->
+      <button className="btn-close-panel" onClick=${onClose} title="Trở lại tàu">
+        <${Icon} name="X" size=${16} />
+      </button>
+
       <h2 className="panel-title">
         <${Icon} name="Cpu" /> <span>Lò Rèn Kỹ Năng</span>
       </h2>
@@ -234,12 +249,17 @@ export function SkillsPanel() {
           </div>
         `)}
       </div>
+
+      <!-- Close Button Bottom -->
+      <button className="btn-back-boat" onClick=${onClose}>
+        <${Icon} name="ArrowLeft" size=${14} /> Giương buồm tiếp tục
+      </button>
     </div>
   `;
 }
 
 // PROJECTS PANEL
-export function ProjectsPanel() {
+export function ProjectsPanel({ onClose }) {
   const projects = [
     {
       title: 'Hành Trình Neon (Neon Odyssey)',
@@ -257,6 +277,11 @@ export function ProjectsPanel() {
 
   return html`
     <div className="glass-panel">
+      <!-- Close Cross Button -->
+      <button className="btn-close-panel" onClick=${onClose} title="Trở lại tàu">
+        <${Icon} name="X" size=${16} />
+      </button>
+
       <h2 className="panel-title">
         <${Icon} name="Compass" /> <span>Kho Dự Án</span>
       </h2>
@@ -292,12 +317,17 @@ export function ProjectsPanel() {
           </div>
         `)}
       </div>
+
+      <!-- Close Button Bottom -->
+      <button className="btn-back-boat" onClick=${onClose}>
+        <${Icon} name="ArrowLeft" size=${14} /> Giương buồm tiếp tục
+      </button>
     </div>
   `;
 }
 
 // EXPERIENCE PANEL
-export function ExperiencePanel() {
+export function ExperiencePanel({ onClose }) {
   const milestones = [
     {
       title: 'Khởi Hành Ra Khơi',
@@ -318,6 +348,11 @@ export function ExperiencePanel() {
 
   return html`
     <div className="glass-panel">
+      <!-- Close Cross Button -->
+      <button className="btn-close-panel" onClick=${onClose} title="Trở lại tàu">
+        <${Icon} name="X" size=${16} />
+      </button>
+
       <h2 className="panel-title">
         <${Icon} name="Map" /> <span>Lộ Trình Hành Trình</span>
       </h2>
@@ -336,14 +371,24 @@ export function ExperiencePanel() {
           </div>
         `)}
       </div>
+
+      <!-- Close Button Bottom -->
+      <button className="btn-back-boat" onClick=${onClose}>
+        <${Icon} name="ArrowLeft" size=${14} /> Giương buồm tiếp tục
+      </button>
     </div>
   `;
 }
 
 // CONTACT PANEL
-export function ContactPanel() {
+export function ContactPanel({ onClose }) {
   return html`
     <div className="glass-panel">
+      <!-- Close Cross Button -->
+      <button className="btn-close-panel" onClick=${onClose} title="Trở lại tàu">
+        <${Icon} name="X" size=${16} />
+      </button>
+
       <div className="contact-grid">
         <!-- Form Details -->
         <div>
@@ -396,6 +441,11 @@ export function ContactPanel() {
           </svg>
         </div>
       </div>
+
+      <!-- Close Button Bottom -->
+      <button className="btn-back-boat" onClick=${onClose} style=${{ display: 'inline-flex', marginTop: '1.2rem' }}>
+        <${Icon} name="ArrowLeft" size=${14} /> Giương buồm tiếp tục
+      </button>
     </div>
   `;
 }

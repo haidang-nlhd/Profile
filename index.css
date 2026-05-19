@@ -1154,3 +1154,90 @@ html, body {
     display: none; /* Hide guide on mobile devices */
   }
 }
+
+/* --- RPG Interact Bubble & Panel Close Button --- */
+.interact-bubble {
+  position: absolute;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--primary-glow);
+  border-radius: 30px;
+  padding: 0.5rem 1.1rem;
+  color: var(--primary-glow);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.35);
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: bounce-bubble 1.8s infinite alternate ease-in-out;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 4px rgba(0, 243, 255, 0.4);
+}
+
+.interact-bubble:hover {
+  background: var(--primary-glow);
+  color: #020b14;
+  box-shadow: 0 0 30px var(--primary-glow);
+  text-shadow: none;
+}
+
+@keyframes bounce-bubble {
+  from { transform: translate(-50%, -135%) rotateX(-62deg); }
+  to { transform: translate(-50%, -150%) rotateX(-62deg); }
+}
+
+.btn-close-panel {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 10;
+}
+
+.btn-close-panel:hover {
+  border-color: var(--secondary-glow);
+  color: var(--secondary-glow);
+  background: rgba(255, 82, 82, 0.05);
+  transform: rotate(90deg);
+  box-shadow: 0 0 10px rgba(255, 82, 82, 0.2);
+}
+
+.btn-back-boat {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 1.5rem;
+}
+
+.btn-back-boat:hover {
+  border-color: var(--primary-glow);
+  color: var(--primary-glow);
+  background: rgba(0, 243, 255, 0.05);
+  transform: translateX(-2px);
+}
+
