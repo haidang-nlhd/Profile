@@ -3,7 +3,7 @@ import htm from 'htm';
 
 const html = htm.bind(React.createElement);
 
-export default function Ocean({ theme, activeSection }) {
+export default function Ocean({ theme, activeSection, settings }) {
   // Generate random static stars for the sky
   const stars = useMemo(() => {
     return Array.from({ length: 70 }).map((_, i) => ({
@@ -29,9 +29,10 @@ export default function Ocean({ theme, activeSection }) {
     }));
   }, []);
 
-  // Generate bioluminescent plankton rises in 3D Space
+  // Generate bioluminescent plankton rises in 3D Space (reactive to count!)
   const planktonList = useMemo(() => {
-    return Array.from({ length: 20 }).map((_, i) => ({
+    const count = settings?.planktonCount || 20;
+    return Array.from({ length: count }).map((_, i) => ({
       id: i,
       left: `${Math.random() * 90 + 5}%`,
       top: `${Math.random() * 90 + 5}%`,
@@ -40,7 +41,7 @@ export default function Ocean({ theme, activeSection }) {
       speed: `${Math.random() * 9 + 6}s`,
       delay: `${Math.random() * -10}s`
     }));
-  }, []);
+  }, [settings?.planktonCount]);
 
   // Horizontal parallax panning based on active section
   const parallaxOffset = useMemo(() => {
@@ -103,7 +104,7 @@ export default function Ocean({ theme, activeSection }) {
       <div 
         className="sea-3d"
         style=${{
-          transform: `rotateX(62deg) translateX(${parallaxOffset * 0.3}px)`,
+          transform: `rotateX(var(--ocean-tilt, 62deg)) translateX(${parallaxOffset * 0.3}px)`,
           transition: 'all 2.2s cubic-bezier(0.25, 1, 0.5, 1)'
         }}
       >

@@ -29,7 +29,7 @@ export default function Boat({ activeSection }) {
   return html`
     <div className="boat-container-3d" style=${boatPositionStyle}>
       <!-- Standing Billboard counter-rotation (rotateX -62deg) -->
-      <div className="boat-billboard">
+      <div className="boat-billboard" style=${{ transform: 'rotateX(var(--ocean-tilt-inverse, -62deg)) translateY(-40%)' }}>
         <div className="boat-body">
           <svg 
             className="boat-svg" 
