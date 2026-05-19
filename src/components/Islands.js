@@ -119,22 +119,67 @@ export function FloatingIslands({ activeSection, onIslandClick }) {
             style=${{
               left: island.left,
               top: island.top,
-              opacity: activeSection === 'hero' ? 0.8 : isActive ? 1 : 0.4,
-              transform: `scale(${isActive ? 1.15 : 0.95})`,
+              opacity: activeSection === 'hero' ? 0.8 : isActive ? 1 : 0.45,
+              transform: `scale(${isActive ? 1.2 : 0.95})`,
               '--island-glow': isActive ? island.glow : 'rgba(0, 243, 255, 0.1)'
             }}
           >
             <!-- standing Billboard counter-rotation (rotateX -62deg) -->
-            <div className="island-billboard">
+            <div className="island-billboard" style=${{ transform: 'rotateX(var(--ocean-tilt-inverse, -62deg)) translateY(-50%)' }}>
               <div className="island-body" style=${{ '--float-duration': island.floatDuration }}>
                 ${island.svg}
               </div>
               <div className="island-glow-pad" />
-              <div className="island-label">${island.name}</div>
+              <div className="island-label" style=${{ fontWeight: 'bold', fontSize: '0.82rem', borderWidth: '1.5px', background: 'rgba(7, 22, 38, 0.9)' }}>
+                ${island.name}
+              </div>
             </div>
           </div>
         `;
       })}
+    </div>
+  `;
+}
+
+// Helper: Social & Quick Connect Buttons Component
+function SocialQuickConnect() {
+  return html`
+    <div style=${{ display: 'flex', gap: '0.8rem', marginTop: '1.2rem', flexWrap: 'wrap' }}>
+      <a 
+        href="https://facebook.com" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="btn-primary" 
+        style=${{
+          padding: '0.6rem 1.1rem',
+          fontSize: '0.78rem',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          textDecoration: 'none',
+          background: 'linear-gradient(135deg, rgba(24, 119, 242, 0.2), rgba(0, 243, 255, 0.15))',
+          borderColor: '#1877f2'
+        }}
+      >
+        <${Icon} name="Facebook" size=${14} /> Facebook Thuyền Trưởng
+      </a>
+      
+      <a 
+        href="mailto:nguyenlehaidang@example.com" 
+        className="btn-primary" 
+        style=${{
+          padding: '0.6rem 1.1rem',
+          fontSize: '0.78rem',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          textDecoration: 'none',
+          background: 'linear-gradient(135deg, rgba(57, 255, 20, 0.2), rgba(0, 243, 255, 0.15))',
+          borderColor: 'var(--accent-glow)'
+        }}
+      >
+        <${Icon} name="Mail" size=${14} /> Gửi Email Trực Tiếp
+      </a>
     </div>
   `;
 }
@@ -181,7 +226,12 @@ export function AboutPanel({ onClose }) {
         </p>
       </div>
 
-      <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', marginBottom: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+      <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', marginBottom: '0.6rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+        Kết Nối Thuyền Trưởng
+      </h3>
+      <${SocialQuickConnect} />
+
+      <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', marginTop: '1.4rem', marginBottom: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
         Lịch Sử Giương Buồm
       </h3>
 
@@ -234,7 +284,8 @@ export function SkillsPanel({ onClose }) {
       <h2 className="panel-title">
         <${Icon} name="Cpu" /> <span>Lò Rèn Kỹ Năng</span>
       </h2>
-      <p style=${{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.2rem' }}>
+      
+      <p style=${{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
         Di chuột qua các cổ tự phát sáng để xem kho vũ khí của tôi:
       </p>
 
@@ -249,6 +300,11 @@ export function SkillsPanel({ onClose }) {
           </div>
         `)}
       </div>
+
+      <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', marginTop: '1.4rem', marginBottom: '0.6rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+        Trao đổi Kỹ thuật
+      </h3>
+      <${SocialQuickConnect} />
 
       <!-- Close Button Bottom -->
       <button className="btn-back-boat" onClick=${onClose}>
@@ -318,6 +374,11 @@ export function ProjectsPanel({ onClose }) {
         `)}
       </div>
 
+      <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', marginTop: '1.4rem', marginBottom: '0.6rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+        Hợp tác Phát triển
+      </h3>
+      <${SocialQuickConnect} />
+
       <!-- Close Button Bottom -->
       <button className="btn-back-boat" onClick=${onClose}>
         <${Icon} name="ArrowLeft" size=${14} /> Giương buồm tiếp tục
@@ -356,7 +417,8 @@ export function ExperiencePanel({ onClose }) {
       <h2 className="panel-title">
         <${Icon} name="Map" /> <span>Lộ Trình Hành Trình</span>
       </h2>
-      <p style=${{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
+      
+      <p style=${{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.2rem' }}>
         Theo dõi hải trình phát triển chuyên môn của tôi qua các cột mốc:
       </p>
 
@@ -371,6 +433,11 @@ export function ExperiencePanel({ onClose }) {
           </div>
         `)}
       </div>
+
+      <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', marginTop: '1.4rem', marginBottom: '0.6rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+        Phỏng vấn / Tuyển dụng
+      </h3>
+      <${SocialQuickConnect} />
 
       <!-- Close Button Bottom -->
       <button className="btn-back-boat" onClick=${onClose}>
@@ -420,11 +487,10 @@ export function ContactPanel({ onClose }) {
             </button>
           </form>
 
-          <div className="social-links">
-            <button className="social-btn"><${Icon} name="Github" size=${16} /></button>
-            <button className="social-btn"><${Icon} name="Linkedin" size=${16} /></button>
-            <button className="social-btn"><${Icon} name="Twitter" size=${16} /></button>
-          </div>
+          <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1rem', marginTop: '1.2rem', marginBottom: '0.6rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
+            Kết Nối Nhanh
+          </h3>
+          <${SocialQuickConnect} />
         </div>
 
         <!-- Animated Lighthouse Visual -->

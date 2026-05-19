@@ -41,7 +41,7 @@ export function Navbar({ activeSection, onNavigate }) {
 // ----------------------------------------------------
 // 2. AMBIENT CONTROLS & WEB AUDIO SYNTHESIZER
 // ----------------------------------------------------
-export function Controls({ theme, toggleTheme, isAudioPlaying, toggleAudio }) {
+export function Controls({ theme, toggleTheme, isAudioPlaying, toggleAudio, onOpenSettings }) {
   const audioContextRef = useRef(null);
   const synthNodesRef = useRef([]);
 
@@ -127,6 +127,15 @@ export function Controls({ theme, toggleTheme, isAudioPlaying, toggleAudio }) {
 
   return html`
     <div className="controls-container">
+      <!-- Settings Panel Toggler -->
+      <button 
+        className="control-btn" 
+        onClick=${onOpenSettings} 
+        title="Cấu hình game & hiệu ứng"
+      >
+        <${Icon} name="Settings" />
+      </button>
+
       <!-- Mute/Unmute waves synth -->
       <button 
         className="control-btn" 
@@ -197,6 +206,114 @@ export function LoadingScreen({ onComplete }) {
       </div>
 
       <div className="loading-text">Đang Chuẩn Bị Khởi Hành ${percent}%</div>
+    </div>
+  `;
+}
+
+// ----------------------------------------------------
+// 4. GAME SETTINGS SLIDERS MODAL (NEW)
+// ----------------------------------------------------
+export function SettingsModal({ show, onClose, settings, onChange }) {
+  if (!show) return null;
+
+  return html`
+    <div 
+      className="glass-panel settings-panel-modal" 
+      style=${{
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        zIndex: 1000,
+        maxWidth: '430px',
+        width: '90%',
+        boxShadow: '0 0 50px rgba(0, 243, 255, 0.25)',
+        border: '2px solid var(--primary-glow)'
+      }}
+    >
+      <button className="btn-close-panel" onClick=${onClose} title="Đóng cài đặt">
+        <${Icon} name="X" size={16} />
+      </button>
+
+      <h2 className="panel-title" style=${{ marginBottom: '1.2rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.8rem' }}>
+        <${Icon} name="Sliders" /> <span>Cấu Hình Game</span>
+      </h2>
+
+      <div style=${{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
+        
+        <!-- Slider 1: Wave pan speed -->
+        <div className="form-group">
+          <div style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+            <label className="form-label">Tốc độ sóng biển</label>
+            <span style=${{ fontSize: '0.85rem', color: 'var(--primary-glow)', fontWeight: 'bold' }}>${settings.waveIntensity}x</span>
+          </div>
+          <input 
+            type="range" 
+            min="0.3" 
+            max="2.5" 
+            step="0.1" 
+            value=${settings.waveIntensity} 
+            onChange=${(e) => onChange('waveIntensity', parseFloat(e.target.value))} 
+            style=${{ width: '100%', cursor: 'pointer', accentColor: 'var(--primary-glow)' }}
+          />
+        </div>
+
+        <!-- Slider 2: Boat bobbing rate -->
+        <div className="form-group">
+          <div style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+            <label className="form-label">Thuyền nhấp nhô (Tần số)</label>
+            <span style=${{ fontSize: '0.85rem', color: 'var(--primary-glow)', fontWeight: 'bold' }}>${settings.boatBobbing}x</span>
+          </div>
+          <input 
+            type="range" 
+            min="0.3" 
+            max="2.5" 
+            step="0.1" 
+            value=${settings.boatBobbing} 
+            onChange=${(e) => onChange('boatBobbing', parseFloat(e.target.value))} 
+            style=${{ width: '100%', cursor: 'pointer', accentColor: 'var(--primary-glow)' }}
+          />
+        </div>
+
+        <!-- Slider 3: 3D perspective angle -->
+        <div className="form-group">
+          <div style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+            <label className="form-label">Góc nghiêng 3D đại dương</label>
+            <span style=${{ fontSize: '0.85rem', color: 'var(--primary-glow)', fontWeight: 'bold' }}>${settings.oceanTilt}°</span>
+          </div>
+          <input 
+            type="range" 
+            min="45" 
+            max="76" 
+            step="1" 
+            value=${settings.oceanTilt} 
+            onChange=${(e) => onChange('oceanTilt', parseInt(e.target.value))} 
+            style=${{ width: '100%', cursor: 'pointer', accentColor: 'var(--primary-glow)' }}
+          />
+        </div>
+
+        <!-- Slider 4: Plankton density -->
+        <div className="form-group">
+          <div style=${{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+            <label className="form-label">Mật độ đom đóm biển</label>
+            <span style=${{ fontSize: '0.85rem', color: 'var(--primary-glow)', fontWeight: 'bold' }}>${settings.planktonCount} hạt</span>
+          </div>
+          <input 
+            type="range" 
+            min="5" 
+            max="60" 
+            step="5" 
+            value=${settings.planktonCount} 
+            onChange=${(e) => onChange('planktonCount', parseInt(e.target.value))} 
+            style=${{ width: '100%', cursor: 'pointer', accentColor: 'var(--primary-glow)' }}
+          />
+        </div>
+
+      </div>
+
+      <button className="btn-back-boat" onClick=${onClose} style=${{ marginTop: '1.5rem', width: '100%', justifyContent: 'center' }}>
+        <${Icon} name="Check" size={14} /> Áp dụng & Quay lại hành trình
+      </button>
     </div>
   `;
 }
