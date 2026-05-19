@@ -6,7 +6,7 @@ import htm from 'htm';
 import Ocean from './components/Ocean.js';
 import Boat from './components/Boat.js';
 import { FloatingIslands, HeroPanel, AboutPanel, SkillsPanel, ProjectsPanel, ExperiencePanel, ContactPanel } from './components/Islands.js';
-import { Navbar, Controls, LoadingScreen } from './components/UI.js';
+import { Navbar, Controls, LoadingScreen, SettingsModal } from './components/UI.js';
 
 const html = htm.bind(React.createElement);
 
@@ -36,6 +36,15 @@ function App() {
   
   // Game-state: Only show the detailed panels when explicitly exploring/docking!
   const [showPanel, setShowPanel] = useState(false);
+
+  // Settings Configuration State (Tuning parameters for the game/effects!)
+  const [settings, setSettings] = useState({
+    waveIntensity: 1.0,  // Wave panning velocity (0.3 to 2.5)
+    boatBobbing: 1.0,    // Boat bobbing wave frequency multiplier (0.3 to 2.5)
+    oceanTilt: 62,       // Tilted 3D plane rotateX angle (45 to 76 deg)
+    planktonCount: 30    // Bioluminescent plankton quantity (5 to 60)
+  });
+  const [showSettings, setShowSettings] = useState(false);
   
   const [theme, setTheme] = useState('night');
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
@@ -64,17 +73,22 @@ function App() {
 
     const handleKeyDown = (e) => {
       // 1. Enter/Space to explore/dock at an island (exactly like an RPG game!)
-      if ((e.key === ' ' || e.key === 'Enter') && activeSection !== 'hero' && !showPanel) {
+      if ((e.key === ' ' || e.key === 'Enter') && activeSection !== 'hero' && !showPanel && !showSettings) {
         e.preventDefault();
         setShowPanel(true);
         return;
       }
 
-      // 2. Escape to close panels and return to sailing
-      if (e.key === 'Escape' && showPanel) {
-        e.preventDefault();
-        setShowPanel(false);
-        return;
+      // 2. Escape to close panels and settings modal
+      if (e.key === 'Escape') {
+        if (showSettings) {
+          setShowSettings(false);
+          return;
+        }
+        if (showPanel) {
+          setShowPanel(false);
+          return;
+        }
       }
 
       // 3. Arrow key steering
@@ -97,6 +111,7 @@ function App() {
 
         // Sail away -> Close any open panel automatically!
         setShowPanel(false);
+        setShowSettings(false);
 
         // Route boat sailing direction
         const nextSection = NAVIGATION_MAP[activeSection]?.[direction];
@@ -125,7 +140,7 @@ function App() {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
-  }, [loading, activeSection, showPanel]);
+  }, [loading, activeSection, showPanel, showSettings]);
 
   // Handle clicking on an Island (direct sailing or exploring)
   const handleIslandClick = (id) => {
@@ -136,12 +151,14 @@ function App() {
       // Boat sails to that island -> Keep panel closed until clicked again/Space is pressed
       setActiveSection(id);
       setShowPanel(false);
+      setShowSettings(false);
     }
   };
 
   // Handle Navbar navigation links
   const handleNavbarNavigate = (id) => {
     setActiveSection(id);
+    setShowSettings(false);
     if (id === 'hero') {
       setShowPanel(true); // Hero intro is shown immediately
     } else {
@@ -178,7 +195,15 @@ function App() {
   }
 
   return html`
-    <div className="app-container">
+    <div 
+      className="app-container"
+      style=${{
+        '--wave-intensity': settings.waveIntensity,
+        '--boat-bobbing': settings.boatBobbing,
+        '--ocean-tilt': `${settings.oceanTilt}deg`,
+        '--ocean-tilt-inverse': `${-settings.oceanTilt}deg`
+      }}
+    >
       <!-- Ambient light follow effect -->
       <div 
         className="mouse-glow" 
@@ -191,10 +216,11 @@ function App() {
         toggleTheme=${() => setTheme(t => t === 'night' ? 'day' : 'night')} 
         isAudioPlaying=${isAudioPlaying}
         toggleAudio=${setIsAudioPlaying}
+        onOpenSettings=${() => setShowSettings(true)}
       />
 
       <!-- 3D Parallax Sky and Sea Floor -->
-      <${Ocean} theme=${theme} activeSection=${activeSection} />
+      <${Ocean} theme=${theme} activeSection=${activeSection} settings=${settings} />
 
       <!-- Floating 3D Islands visual objects -->
       <${FloatingIslands} activeSection=${activeSection} onIslandClick=${handleIslandClick} />
@@ -222,16 +248,24 @@ function App() {
         </div>
       `}
 
-      <!-- Overlays Stage (Detailed information card display) -->
-      <div className="overlays-stage" style=${{ justifyContent: activeSection === 'hero' ? 'center' : 'flex-start' }}>
+      <!-- Overlays Stage (Detailed information card display - centered) -->
+      <div className="overlays-stage" style=${{ justifyContent: 'center', alignItems: 'center' }}>
         ${activeSection === 'hero' 
           ? html`<${HeroPanel} onStart=${() => handleNavbarNavigate('about')} />`
           : showPanel && renderActivePanel()
         }
       </div>
 
+      <!-- Settings Configurations Modal -->
+      <${SettingsModal} 
+        show=${showSettings} 
+        onClose=${() => setShowSettings(false)} 
+        settings=${settings} 
+        onChange=${(key, val) => setSettings(prev => ({ ...prev, [key]: val }))} 
+      />
+
       <!-- RPG Gamified quest-interact floating bubble above the boat -->
-      ${activeSection !== 'hero' && !showPanel && html`
+      ${activeSection !== 'hero' && !showPanel && !showSettings && html`
         <div 
           className="interact-bubble" 
           onClick=${() => setShowPanel(true)}
