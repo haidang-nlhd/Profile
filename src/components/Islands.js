@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import htm from 'htm';
 import * as Lucide from 'lucide-react';
 
@@ -141,45 +141,102 @@ export function FloatingIslands({ activeSection, onIslandClick }) {
   `;
 }
 
-// Helper: Social & Quick Connect Buttons Component
-function SocialQuickConnect() {
+// Helper: Contact links and CV preview section for About/Contact panels
+function ContactLinks({ showCV, onToggleCV }) {
   return html`
-    <div style=${{ display: 'flex', gap: '0.8rem', marginTop: '1.2rem', flexWrap: 'wrap' }}>
-      <a 
-        href="https://facebook.com" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        className="btn-primary" 
-        style=${{
-          padding: '0.6rem 1.1rem',
-          fontSize: '0.78rem',
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '6px',
-          textDecoration: 'none',
-          background: 'linear-gradient(135deg, rgba(24, 119, 242, 0.2), rgba(0, 243, 255, 0.15))',
-          borderColor: '#1877f2'
-        }}
-      >
-        <${Icon} name="Facebook" size=${14} /> Facebook Thuyền Trưởng
-      </a>
-      
-      <a 
-        href="mailto:nguyenlehaidang@example.com" 
-        className="btn-primary" 
-        style=${{
-          padding: '0.6rem 1.1rem',
-          fontSize: '0.78rem',
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '6px',
-          textDecoration: 'none',
-          background: 'linear-gradient(135deg, rgba(57, 255, 20, 0.2), rgba(0, 243, 255, 0.15))',
-          borderColor: 'var(--accent-glow)'
-        }}
-      >
-        <${Icon} name="Mail" size=${14} /> Gửi Email Trực Tiếp
-      </a>
+    <div style=${{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+      <div style=${{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '0.8rem' }}>
+        <a
+          href="https://www.facebook.com/nguyen.dang2608?locale=vi_VN"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary"
+          style=${{
+            padding: '0.7rem 0.9rem',
+            fontSize: '0.82rem',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.55rem',
+            textDecoration: 'none',
+            borderColor: '#1877f2',
+            justifyContent: 'center'
+          }}
+        >
+          <${Icon} name="Facebook" size=${14} /> Facebook
+        </a>
+
+        <a
+          href="https://github.com/haidang-nlhd"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary"
+          style=${{
+            padding: '0.7rem 0.9rem',
+            fontSize: '0.82rem',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.55rem',
+            textDecoration: 'none',
+            borderColor: '#fff',
+            justifyContent: 'center'
+          }}
+        >
+          <${Icon} name="Github" size=${14} /> GitHub
+        </a>
+
+        <a
+          href="mailto:nguyenlehaidang2685@gmail.com"
+          className="btn-primary"
+          style=${{
+            padding: '0.7rem 0.9rem',
+            fontSize: '0.82rem',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.55rem',
+            textDecoration: 'none',
+            borderColor: 'var(--accent-glow)',
+            justifyContent: 'center'
+          }}
+        >
+          <${Icon} name="Mail" size=${14} /> Email
+        </a>
+
+        <button
+          type="button"
+          className="btn-primary"
+          onClick=${onToggleCV}
+          style=${{
+            padding: '0.7rem 0.9rem',
+            fontSize: '0.82rem',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.55rem',
+            justifyContent: 'center',
+            borderColor: 'var(--secondary-glow)'
+          }}
+        >
+          <${Icon} name="FileText" size=${14} /> ${showCV ? 'Ẩn CV' : 'Xem CV'}
+        </button>
+      </div>
+
+      ${showCV && html`
+        <div style=${{
+          padding: '1rem',
+          borderRadius: '18px',
+          background: 'rgba(255, 255, 255, 0.05)',
+          border: '1px solid rgba(255,255,255,0.12)',
+          color: 'var(--text-primary)',
+          lineHeight: '1.6'
+        }}>
+          <p style=${{ fontWeight: 700, marginBottom: '0.75rem', color: 'var(--primary-glow)' }}>CV Ngắn gọn</p>
+          <p style=${{ marginBottom: '0.45rem' }}><strong>Nguyễn Lê Hải Đăng</strong> - Full Stack Developer.</p>
+          <p style=${{ marginBottom: '0.45rem' }}>Chuyên xây dựng ứng dụng web React, Node.js, Express và hệ thống backend hiệu năng cao.</p>
+          <p style=${{ marginBottom: '0.45rem' }}>Kinh nghiệm: Thiết kế giao diện người dùng, tối ưu hiệu năng, phát triển API và triển khai dự án thực tế.</p>
+          <p style=${{ marginTop: '0.8rem', color: 'var(--text-secondary)', fontSize: '0.86rem' }}>
+            Xem chi tiết CV trên GitHub hoặc liên hệ trực tiếp qua email để nhận bản CV đầy đủ.
+          </p>
+        </div>
+      `}
     </div>
   `;
 }
@@ -203,6 +260,8 @@ export function HeroPanel({ onStart }) {
 
 // ABOUT ME PANEL
 export function AboutPanel({ onClose }) {
+  const [showCV, setShowCV] = useState(false);
+
   return html`
     <div className="glass-panel">
       <!-- Close Cross Button -->
@@ -229,7 +288,7 @@ export function AboutPanel({ onClose }) {
       <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', marginBottom: '0.6rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
         Kết Nối Thuyền Trưởng
       </h3>
-      <${SocialQuickConnect} />
+      <${ContactLinks} showCV=${showCV} onToggleCV=${() => setShowCV(prev => !prev)} />
 
       <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', marginTop: '1.4rem', marginBottom: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
         Lịch Sử Giương Buồm
@@ -300,11 +359,6 @@ export function SkillsPanel({ onClose }) {
           </div>
         `)}
       </div>
-
-      <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', marginTop: '1.4rem', marginBottom: '0.6rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
-        Trao đổi Kỹ thuật
-      </h3>
-      <${SocialQuickConnect} />
 
       <!-- Close Button Bottom -->
       <button className="btn-back-boat" onClick=${onClose}>
@@ -377,7 +431,6 @@ export function ProjectsPanel({ onClose }) {
       <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', marginTop: '1.4rem', marginBottom: '0.6rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
         Hợp tác Phát triển
       </h3>
-      <${SocialQuickConnect} />
 
       <!-- Close Button Bottom -->
       <button className="btn-back-boat" onClick=${onClose}>
@@ -437,7 +490,6 @@ export function ExperiencePanel({ onClose }) {
       <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', marginTop: '1.4rem', marginBottom: '0.6rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
         Phỏng vấn / Tuyển dụng
       </h3>
-      <${SocialQuickConnect} />
 
       <!-- Close Button Bottom -->
       <button className="btn-back-boat" onClick=${onClose}>
@@ -449,6 +501,8 @@ export function ExperiencePanel({ onClose }) {
 
 // CONTACT PANEL
 export function ContactPanel({ onClose }) {
+  const [showCV, setShowCV] = useState(false);
+
   return html`
     <div className="glass-panel">
       <!-- Close Cross Button -->
@@ -490,7 +544,7 @@ export function ContactPanel({ onClose }) {
           <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1rem', marginTop: '1.2rem', marginBottom: '0.6rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
             Kết Nối Nhanh
           </h3>
-          <${SocialQuickConnect} />
+          <${ContactLinks} showCV=${showCV} onToggleCV=${() => setShowCV(prev => !prev)} />
         </div>
 
         <!-- Animated Lighthouse Visual -->
