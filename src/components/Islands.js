@@ -250,7 +250,7 @@ export function HeroPanel({ onStart }) {
   return html`
     <div className="hero-content">
       <h1 className="hero-title">Nguyễn Lê Hải Đăng</h1>
-      <p className="hero-subtitle">Lập trình viên Full Stack đang khám phá thế giới số</p>
+      <p className="hero-subtitle">Lập trình viên</p>
       <button className="btn-primary" onClick=${onStart}>
         Bắt đầu Hành trình
       </button>
@@ -275,7 +275,7 @@ export function AboutPanel({ onClose }) {
       
       <div style=${{ fontSize: '0.88rem', lineHeight: '1.6', color: 'var(--text-primary)', marginBottom: '1.2rem' }}>
         <p style=${{ marginBottom: '0.8rem' }}>
-          Xin chào! Tôi là một lập trình viên Full Stack đam mê kiến tạo các không gian kỹ thuật số cao cấp. 
+          Xin chào! Tôi là một lập trình viên Web đam mê kiến tạo các không gian kỹ thuật số cao cấp. 
           Với tôi, lập trình không chỉ là những dòng code khô khan, mà là một <strong>hành trình phiêu lưu tương tác</strong> 
           nơi vẻ đẹp thị giác hòa quyện cùng kỹ thuật vững chắc.
         </p>
@@ -297,18 +297,27 @@ export function AboutPanel({ onClose }) {
       <div className="timeline">
         <div className="timeline-item">
           <div className="timeline-node" />
-          <div className="timeline-date">2024 - Hiện tại</div>
-          <div className="timeline-role">Nhà khám phá Web độc lập</div>
+          <div className="timeline-date">2023 - 2024</div>
+          <div className="timeline-role">Hành trình tìm hiểu về Code</div>
           <div className="timeline-company">Dự án tự do / Digital Studio</div>
-          <div className="timeline-desc">Thiết kế các cổng tương tác hiệu năng cao và các công cụ quản lý chuyên nghiệp.</div>
+          <div className="timeline-desc">Học những ngôn ngữ về máy tính và kỹ thuật lập trình.</div>
+        </div>
+        
+        <div className="timeline">
+        <div className="timeline-item">
+          <div className="timeline-node" />
+          <div className="timeline-date">2024 - 2025</div>
+          <div className="timeline-role">Hành trình tìm hiểu về Code</div>
+          <div className="timeline-company">Dự án tự do / Digital Studio</div>
+          <div className="timeline-desc">Tiếp tục học sâu và tìm hiểu về 1 trang web thực thụ.</div>
         </div>
         
         <div className="timeline-item">
           <div className="timeline-node" />
-          <div className="timeline-date">2022 - 2024</div>
+          <div className="timeline-date">2025 - 2026</div>
           <div className="timeline-role">Lập trình viên Web</div>
-          <div className="timeline-company">Tech Nebula Solutions</div>
-          <div className="timeline-desc">Phát triển các ứng dụng phong phú sử dụng Laravel và React, giảm thiểu độ trễ API hơn 35%.</div>
+          <div className="timeline-company"></div>
+          <div className="timeline-desc">Phát triển các ứng dụng phong phú sử dụng Html, css, js, Laravel và React,API.</div>
         </div>
       </div>
 
@@ -450,14 +459,25 @@ export function ExperiencePanel({ onClose }) {
     },
     {
       title: 'Giương Buồm Đại Dương',
-      role: 'Lập trình Full-stack & Làm chủ kiến trúc mã nguồn.',
-      desc: 'Triển khai thành công các cổng thương mại điện tử quy mô lớn sử dụng PHP, Javascript và các cơ sở dữ liệu quan hệ.'
+      role: 'Lập trình & Làm chủ kiến trúc mã nguồn.',
+      desc: 'Triển khai thành công web đơn giản sử dụng PHP, Javascript và các cơ sở dữ liệu liên quan.'
     },
     {
       title: 'Chân Trời Mới',
-      role: 'Giao diện Cinematic & Hạ tầng tự động hóa.',
-      desc: 'Thiết kế các giao diện phản ứng nhập vai, triển khai vận hành hạ tầng trên nền tảng đám mây và Docker containers.'
+      role: 'Lập trình & Thiết kế giao diện',
+      desc: 'Thiết kế trang web hoàn chỉnh, đưa lên hosting, sử dụng laravel, thêm các tính năng cần có của trang web, sử dụng API, Docker.'
+    },
+    {
+      title: 'Khám Phá Vô Tận',
+      role: 'Tìm hiểu sâu về phát triển web full stack.',
+      desc: 'Tìm những bậc thầy để học hỏi và tiếp tục phát triển kỹ năng, hướng tới việc xây dựng các ứng dụng web phức tạp và hiệu quả hơn nữa.'
+    },
+    {
+      title: 'Phỏng vấn và thực tập',
+      role: 'Chuẩn bị cho cơ hội nghề nghiệp thực tế.',
+      desc: 'Tham gia phỏng vấn thực tập, xây dựng hồ sơ cá nhân và tiếp tục học hỏi từ các chuyên gia trong ngành.'
     }
+
   ];
 
   return html`
@@ -487,9 +507,7 @@ export function ExperiencePanel({ onClose }) {
         `)}
       </div>
 
-      <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', marginTop: '1.4rem', marginBottom: '0.6rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
-        Phỏng vấn / Tuyển dụng
-      </h3>
+      
 
       <!-- Close Button Bottom -->
       <button className="btn-back-boat" onClick=${onClose}>
@@ -514,7 +532,7 @@ export function ContactPanel({ onClose }) {
         <!-- Form Details -->
         <div>
           <h2 className="panel-title">
-            <${Icon} name="Mail" /> <span>Tín Hiệu Hải Đăng</span>
+            <${Icon} name="Mail" /> <span>Hãy gửi cho Hải Đăng những suy nghĩ của bạn.</span>
           </h2>
           <p style=${{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
             Gửi một tín hiệu qua màn sương! Tôi sẽ phản hồi ngay khi con tàu của tôi cập cảng gần nhất.
@@ -523,17 +541,17 @@ export function ContactPanel({ onClose }) {
           <form className="contact-form" onSubmit=${(e) => { e.preventDefault(); alert("Tín hiệu đã được truyền đi thành công!"); }}>
             <div className="form-group">
               <label className="form-label">Tên Thuyền Trưởng</label>
-              <input type="text" className="form-input" placeholder="Ví dụ: Captain Nemo" required />
+              <input type="text" className="form-input" placeholder="Ví dụ: HaiDang" required />
             </div>
             
             <div className="form-group">
               <label className="form-label">Tần Số Phản Hồi (Email)</label>
-              <input type="email" className="form-input" placeholder="nemo@nautilus.sea" required />
+              <input type="email" className="form-input" placeholder="nemo@nautilus.com" required />
             </div>
             
             <div className="form-group">
               <label className="form-label">Thông Điệp Của Bạn</label>
-              <textarea className="form-textarea" placeholder="Chào bạn! Hãy cùng kiến tạo..." required></textarea>
+              <textarea className="form-textarea" placeholder="Chào bạn! Hãy cùng xây dựng..." required></textarea>
             </div>
 
             <button type="submit" className="btn-primary" style=${{ padding: '0.7rem', fontSize: '0.8rem' }}>
