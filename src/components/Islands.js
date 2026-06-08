@@ -303,7 +303,6 @@ export function AboutPanel({ onClose }) {
           <div className="timeline-desc">Học những ngôn ngữ về máy tính và kỹ thuật lập trình.</div>
         </div>
         
-        <div className="timeline">
         <div className="timeline-item">
           <div className="timeline-node" />
           <div className="timeline-date">2024 - 2025</div>
@@ -520,6 +519,61 @@ export function ExperiencePanel({ onClose }) {
 // CONTACT PANEL
 export function ContactPanel({ onClose }) {
   const [showCV, setShowCV] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setSubmitMessage('');
+
+    try {
+      // Initialize EmailJS with your public key (you'll need to set this up)
+      if (typeof emailjs === 'undefined') {
+        throw new Error('EmailJS not loaded');
+      }
+
+      emailjs.init('Eh4IplB-ZXGFdpNBK'); // Replace with your EmailJS Public Key
+
+      const templateParams = {
+        to_email: 'nguyenlehaidang2685@gmail.com',
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message
+      };
+
+      const response = await emailjs.send(
+        'service_yr6cybp', // Replace with your EmailJS Service ID
+        'template_sy6oorb', // Replace with your EmailJS Template ID
+        templateParams
+      );
+
+      if (response.status === 200) {
+        setSubmitMessage('✓ Tín hiệu đã được truyền đi thành công! Hải Đăng sẽ phản hồi sớm.');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setSubmitMessage(''), 5000);
+      }
+    } catch (error) {
+      console.error('Email Error:', error);
+      setSubmitMessage('✗ Lỗi gửi tín hiệu. Vui lòng thử lại hoặc gửi email trực tiếp.');
+      setTimeout(() => setSubmitMessage(''), 5000);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return html`
     <div className="glass-panel">
@@ -538,24 +592,66 @@ export function ContactPanel({ onClose }) {
             Gửi một tín hiệu qua màn sương! Tôi sẽ phản hồi ngay khi con tàu của tôi cập cảng gần nhất.
           </p>
 
-          <form className="contact-form" onSubmit=${(e) => { e.preventDefault(); alert("Tín hiệu đã được truyền đi thành công!"); }}>
+          <form className="contact-form" onSubmit=${handleSubmit}>
             <div className="form-group">
               <label className="form-label">Tên Thuyền Trưởng</label>
-              <input type="text" className="form-input" placeholder="Ví dụ: HaiDang" required />
+              <input 
+                type="text" 
+                name="name"
+                className="form-input" 
+                placeholder="Ví dụ: HaiDang" 
+                value=${formData.name}
+                onChange=${handleInputChange}
+                required 
+              />
             </div>
             
             <div className="form-group">
               <label className="form-label">Tần Số Phản Hồi (Email)</label>
-              <input type="email" className="form-input" placeholder="nemo@nautilus.com" required />
+              <input 
+                type="email" 
+                name="email"
+                className="form-input" 
+                placeholder="nemo@nautilus.com" 
+                value=${formData.email}
+                onChange=${handleInputChange}
+                required 
+              />
             </div>
             
             <div className="form-group">
               <label className="form-label">Thông Điệp Của Bạn</label>
-              <textarea className="form-textarea" placeholder="Chào bạn! Hãy cùng xây dựng..." required></textarea>
+              <textarea 
+                name="message"
+                className="form-textarea" 
+                placeholder="Chào bạn! Hãy cùng xây dựng..." 
+                value=${formData.message}
+                onChange=${handleInputChange}
+                required
+              ></textarea>
             </div>
 
-            <button type="submit" className="btn-primary" style=${{ padding: '0.7rem', fontSize: '0.8rem' }}>
-              Truyền Tín Hiệu
+            ${submitMessage && html`
+              <div style=${{
+                padding: '0.6rem 0.8rem',
+                borderRadius: '8px',
+                fontSize: '0.8rem',
+                marginBottom: '0.8rem',
+                background: submitMessage.includes('✓') ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                border: submitMessage.includes('✓') ? '1px solid #22c55e' : '1px solid #ef4444',
+                color: submitMessage.includes('✓') ? '#22c55e' : '#ef4444'
+              }}>
+                ${submitMessage}
+              </div>
+            `}
+
+            <button 
+              type="submit" 
+              className="btn-primary" 
+              style=${{ padding: '0.7rem', fontSize: '0.8rem', opacity: loading ? 0.6 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}
+              disabled=${loading}
+            >
+              ${loading ? 'Đang gửi...' : 'Truyền Tín Hiệu'}
             </button>
           </form>
 

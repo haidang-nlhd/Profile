@@ -91,15 +91,15 @@ function App() {
         }
       }
 
-      // 3. Arrow key steering
+      // 3. Arrow key steering (only arrow keys allowed)
       let direction = '';
-      if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
+      if (e.key === 'ArrowUp') {
         direction = 'Up';
-      } else if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') {
+      } else if (e.key === 'ArrowDown') {
         direction = 'Down';
-      } else if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
+      } else if (e.key === 'ArrowLeft') {
         direction = 'Left';
-      } else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
+      } else if (e.key === 'ArrowRight') {
         direction = 'Right';
       }
 
@@ -123,10 +123,15 @@ function App() {
 
     const handleKeyUp = (e) => {
       let direction = '';
-      if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') direction = 'Up';
-      if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') direction = 'Down';
-      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') direction = 'Left';
-      if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') direction = 'Right';
+      if (e.key === 'ArrowUp') {
+        direction = 'Up';
+      } else if (e.key === 'ArrowDown') {
+        direction = 'Down';
+      } else if (e.key === 'ArrowLeft') {
+        direction = 'Left';
+      } else if (e.key === 'ArrowRight') {
+        direction = 'Right';
+      }
 
       if (direction) {
         setPressedKeys(prev => ({ ...prev, [direction]: false }));
