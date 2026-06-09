@@ -274,15 +274,32 @@ export function AboutPanel({ onClose }) {
       </h2>
       
       <div style=${{ fontSize: '0.88rem', lineHeight: '1.6', color: 'var(--text-primary)', marginBottom: '1.2rem' }}>
-        <p style=${{ marginBottom: '0.8rem' }}>
-          Xin chào! Tôi là một lập trình viên Web đam mê kiến tạo các không gian kỹ thuật số cao cấp. 
-          Với tôi, lập trình không chỉ là những dòng code khô khan, mà là một <strong>hành trình phiêu lưu tương tác</strong> 
-          nơi vẻ đẹp thị giác hòa quyện cùng kỹ thuật vững chắc.
-        </p>
-        <p>
-          Mục tiêu của tôi là tạo ra các giao diện front-end đắm chìm kết hợp với kiến trúc server hiệu năng cao. 
-          Cho dù đang xây dựng các hệ quản trị trạng thái phức tạp hay thiết kế cơ sở dữ liệu, tôi luôn giương buồm với tinh thần tỉ mỉ của một người thợ thủ công.
-        </p>
+        <div style=${{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          <img
+            src="/assets/intro-portrait.jpg"
+            alt="Ảnh Thuyền Trưởng"
+            style=${{
+              width: '110px',
+              height: '110px',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              border: '3px solid rgba(255,255,255,0.08)',
+              boxShadow: '0 6px 18px rgba(2,6,23,0.5)'
+            }}
+          />
+
+          <div style=${{ minWidth: 0 }}>
+            <p style=${{ marginBottom: '0.8rem' }}>
+              Xin chào! Tôi là một lập trình viên Web đam mê kiến tạo các không gian kỹ thuật số cao cấp. 
+              Với tôi, lập trình không chỉ là những dòng code khô khan, mà là một <strong>hành trình phiêu lưu tương tác</strong> 
+              nơi vẻ đẹp thị giác hòa quyện cùng kỹ thuật vững chắc.
+            </p>
+            <p>
+              Mục tiêu của tôi là tạo ra các giao diện front-end đắm chìm kết hợp với kiến trúc server hiệu năng cao. 
+              Cho dù đang xây dựng các hệ quản trị trạng thái phức tạp hay thiết kế cơ sở dữ liệu, tôi luôn giương buồm với tinh thần tỉ mỉ của một người thợ thủ công.
+            </p>
+          </div>
+        </div>
       </div>
 
       <h3 style=${{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', marginBottom: '0.6rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
