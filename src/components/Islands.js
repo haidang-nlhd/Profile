@@ -274,7 +274,7 @@ export function AboutPanel({ onClose }) {
       </h2>
       
       <div style=${{ fontSize: '0.88rem', lineHeight: '1.6', color: 'var(--text-primary)', marginBottom: '1.2rem', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-        <img src="/src/assets/intro-portrait.jpg" alt="Ảnh Thuyền Trưởng" style=${{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0, border: '2px solid rgba(0,243,255,0.2)' }} />
+        <img src="./src/assets/intro-portrait.jpg" alt="Ảnh Thuyền Trưởng" style=${{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0, border: '2px solid rgba(0,243,255,0.2)' }} />
         <div>
           <p style=${{ marginBottom: '0.8rem' }}>
             Xin chào! Tôi là một lập trình viên Web đam mê kiến tạo các không gian kỹ thuật số cao cấp. 
